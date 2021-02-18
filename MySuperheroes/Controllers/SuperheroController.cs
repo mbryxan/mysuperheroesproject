@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MySuperheroes.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,19 @@ namespace MySuperheroes.Controllers
 {
     public class SuperheroController : Controller
     {
+
+        private readonly ApplicationDbContext _context;
+
+        public SuperheroController(ApplicationDbContext context)
+
+        {
+            _context = context;
+        }
         // GET: SuperheroController
         public ActionResult Index()
         {
-            return View();
+            var superheroes = _context.Superheroes;
+            return View(superheroes);
         }
 
         // GET: SuperheroController/Details/5
